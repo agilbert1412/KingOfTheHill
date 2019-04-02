@@ -71,7 +71,13 @@
     <Compile Include="ColorCraze\ColorCrazeBoard\ColorCrazeBoard.cs" />
     <Compile Include="ColorCraze\ColorCrazeBoard\ColorCrazeGridSquare.cs" />
     <Compile Include="ColorCraze\ColorCrazeDecision.cs" />
+    <Compile Include="ColorCraze\ColorCrazePlayers\Bots\AANBot.cs" />
     <Compile Include="ColorCraze\ColorCrazePlayers\Bots\FillerBot.cs" />
+    <Compile Include="ColorCraze\ColorCrazePlayers\Bots\GSBot.cs" />
+    <Compile Include="ColorCraze\ColorCrazePlayers\Bots\JealousBot.cs" />
+    <Compile Include="ColorCraze\ColorCrazePlayers\Bots\KaitoBot.cs" />
+    <Compile Include="ColorCraze\ColorCrazePlayers\Bots\PeruvienBot.cs" />
+    <Compile Include="ColorCraze\ColorCrazePlayers\Bots\SelfishRobinHood.cs" />
     <Compile Include="ColorCraze\ColorCrazePlayers\Bots\StraightBot.cs" />
     <Compile Include="ColorCraze\ColorCrazePlayers\Bots\YourBot.cs" />
     <Compile Include="ColorCraze\ColorCrazePlayers\ColorCrazePlayerFactory.cs" />

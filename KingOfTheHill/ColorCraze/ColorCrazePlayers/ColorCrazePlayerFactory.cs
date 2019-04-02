@@ -12,6 +12,12 @@ namespace KingOfTheHill.ColorCraze.ColorCrazePlayers
     {
         static List<Type> typesOfPlayers = new List<Type>()
         {
+            typeof(AANBot),
+            typeof(GS_Bot),
+            typeof(JealousBot),
+            typeof(KaitoBot),
+            typeof(PeruvienBot),
+            typeof(SelfishRobinHood),
             typeof(TrollBot),
             typeof(FillerBot),
             typeof(StraightBot),

@@ -18,6 +18,8 @@ namespace KingOfTheHill.ColorCraze
     {
         List<ColorCrazeGame> currentGames;
 
+        private int currentMaxGames = 1;
+
         List<ColorCrazePlayer> currentPlayers;
 
         Dictionary<PlayerInfo, int> currentScores;
@@ -152,6 +154,8 @@ namespace KingOfTheHill.ColorCraze
                 currentGames.Add(new ColorCrazeGame(currentPlayers));
             }
 
+            currentMaxGames = (int)numGames.Value;
+
             currentScores = new Dictionary<PlayerInfo, int>();
             var allInfos = currentPlayers.Select(x => x.Info).ToList();
             foreach (var p in currentPlayers)
@@ -177,6 +181,8 @@ namespace KingOfTheHill.ColorCraze
             if (currentGames.Any())
             {
                 var gameIsOver = currentGames.First().PlayStep(currentScores);
+
+                lblGameNum.Text = (currentMaxGames - currentGames.Count + 1) + " / " + currentMaxGames;
 
                 ShowScoresLabels();
                 ShowStatusLabels();
@@ -250,13 +256,15 @@ namespace KingOfTheHill.ColorCraze
                     scoreLabel.Size = new Size(40, 13);
                     botLabel.Size = new Size(80, 13);
 
-                    botLabel.ForeColor = currentPlayers.First(x => x.Info.ID == orderedScores[i].Key.ID).GetInfo().PlayerColor;
-                    scoreLabel.ForeColor = currentPlayers.First(x => x.Info.ID == orderedScores[i].Key.ID).GetInfo().PlayerColor;
+                    var thisPlayer = currentPlayers.First(x => x.Info.ID == orderedScores[i].Key.ID).GetInfo();
+
+                    botLabel.ForeColor = thisPlayer.PlayerColor;
+                    scoreLabel.ForeColor = thisPlayer.PlayerColor;
 
                     botLabel.BackColor = Color.Transparent;
                     scoreLabel.BackColor = Color.Transparent;
 
-                    botLabel.Text = orderedScores[i].Key.Name;
+                    botLabel.Text = currentGames.First().GetTime(thisPlayer) + " " + orderedScores[i].Key.Name;
                     scoreLabel.Text = orderedScores[i].Value.ToString();
 
                     botLabel.Visible = true;

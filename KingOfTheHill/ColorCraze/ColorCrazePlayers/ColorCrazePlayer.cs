@@ -1,6 +1,7 @@
 ﻿using KingOfTheHill.Players;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -10,6 +11,9 @@ namespace KingOfTheHill.ColorCraze.Players
 {
     public abstract class ColorCrazePlayer : Player
     {
+        public Stopwatch swPlays = new Stopwatch();
+        public int nbPlays = 0;
+
         public ColorCrazePlayer()
         {
             Info = new ColorCrazePlayerInfo();
@@ -54,7 +58,9 @@ namespace KingOfTheHill.ColorCraze.Players
         }
 
         public abstract void StartAll(List<PlayerInfo> allPlayers);
+
         public abstract void StartGame(Dictionary<PlayerInfo, int> allPlayersAndScores);
+
         public abstract TurnAction PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board board);
     }
 }

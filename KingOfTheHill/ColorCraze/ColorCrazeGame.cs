@@ -62,8 +62,19 @@ namespace KingOfTheHill.ColorCraze
             }
 
             var infos = Players.Select(x => x.GetInfo()).ToList();
-
-            var action = Players[PlayerToPlay].PlayTurn(infos, Board);
+            
+            Players[PlayerToPlay].swPlays.Start();
+            TurnAction action;
+            try
+            {
+                action = Players[PlayerToPlay].PlayTurn(infos, Board);
+            }
+            catch (Exception e)
+            {
+                action = new TurnAction(Players[PlayerToPlay].Info, new ColorCrazeDecision(new Point(0, 0)));
+            }
+            Players[PlayerToPlay].nbPlays++;
+            Players[PlayerToPlay].swPlays.Stop();
 
             if (action.ActionTaken is ColorCrazeDecision)
             {
@@ -141,6 +152,17 @@ namespace KingOfTheHill.ColorCraze
             }
 
             return status;
+        }
+
+        public long GetTime(PlayerInfo player)
+        {
+            foreach (var p in Players)
+            {
+                if (p.Info == player && p.nbPlays > 0)
+                    return p.swPlays.ElapsedMilliseconds / p.nbPlays;
+            }
+
+            return 0;
         }
     }
 }
