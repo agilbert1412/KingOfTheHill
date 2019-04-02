@@ -56,6 +56,7 @@
             this.lblStatusBot = new System.Windows.Forms.Label();
             this.timerStep = new System.Windows.Forms.Timer(this.components);
             this.lblGameNum = new System.Windows.Forms.Label();
+            this.ShowPlayerStatisticsButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.numGames)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.trackBar1)).BeginInit();
@@ -353,11 +354,23 @@
             this.lblGameNum.Size = new System.Drawing.Size(70, 30);
             this.lblGameNum.TabIndex = 14;
             // 
+            // ShowPlayerStatisticsButton
+            // 
+            this.ShowPlayerStatisticsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ShowPlayerStatisticsButton.Location = new System.Drawing.Point(568, 532);
+            this.ShowPlayerStatisticsButton.Name = "ShowPlayerStatisticsButton";
+            this.ShowPlayerStatisticsButton.Size = new System.Drawing.Size(100, 30);
+            this.ShowPlayerStatisticsButton.TabIndex = 19;
+            this.ShowPlayerStatisticsButton.Text = "ShowPlayerStatistics";
+            this.ShowPlayerStatisticsButton.UseVisualStyleBackColor = true;
+            this.ShowPlayerStatisticsButton.Click += new System.EventHandler(this.ShowPlayerStatisticsButton_Click);
+            // 
             // frmColorCraze
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(982, 575);
+            this.Controls.Add(this.ShowPlayerStatisticsButton);
             this.Controls.Add(this.lblGameNum);
             this.Controls.Add(this.groupStatus);
             this.Controls.Add(this.groupScores);
@@ -423,5 +436,6 @@
         private System.Windows.Forms.Label lblStatusSquares;
         private System.Windows.Forms.Label lblStatusBot;
         private System.Windows.Forms.Label lblGameNum;
+        private System.Windows.Forms.Button ShowPlayerStatisticsButton;
     }
 }

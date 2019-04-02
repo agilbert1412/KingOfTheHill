@@ -155,9 +155,10 @@ namespace KingOfTheHill.ColorCraze
             }
 
             currentMaxGames = (int)numGames.Value;
-
             currentScores = new Dictionary<PlayerInfo, int>();
             var allInfos = currentPlayers.Select(x => x.Info).ToList();
+            _matchResults = PrepareMatchResultList(currentMaxGames, allInfos);
+
             foreach (var p in currentPlayers)
             {
                 currentScores.Add(p.Info, 0);
@@ -176,12 +177,35 @@ namespace KingOfTheHill.ColorCraze
             timerStep.Start();
         }
 
+        private List<PlayerMatchResult> _matchResults;
+
+        
+
+        private List<PlayerMatchResult> PrepareMatchResultList(int numberOfGames, List<PlayerInfo> players)
+        {
+            var temp = new List<PlayerMatchResult>();
+
+            foreach (var player in players)
+            {
+                temp.Add(new PlayerMatchResult
+                {
+                    TotalCapturedCells = 0,
+                    TotalGames = numberOfGames,
+                    Player = player
+                });
+            }
+
+            return temp;
+        }
+
         private void timerStep_Tick(object sender, EventArgs e)
         {
             if (currentGames.Any())
             {
+               
                 var gameIsOver = currentGames.First().PlayStep(currentScores);
-
+                pnlGame.Refresh();
+                Application.DoEvents();
                 lblGameNum.Text = (currentMaxGames - currentGames.Count + 1) + " / " + currentMaxGames;
 
                 ShowScoresLabels();
@@ -190,6 +214,28 @@ namespace KingOfTheHill.ColorCraze
                 if (gameIsOver)
                 {
                     var scores = currentGames.First().GetStatus().OrderByDescending(x => x.Value).ToList();
+
+
+
+                    foreach (var score in scores)
+                    {
+                        var playerId = score.Key.ID;
+                        var capturedCells = score.Value;
+                        var playerResult = _matchResults.First(p => p.Player.ID == playerId);
+                        playerResult.TotalCapturedCells += capturedCells;
+                        if (currentGames.Count>1)
+                        {
+                            playerResult.TotalGames++;
+                        }
+                    }
+
+
+
+
+
+
+
+
                     var scoreAtThisPosition = scores.Count() - 1;
                     for(var i = 0; i < scores.Count(); i++)
                     {
@@ -427,5 +473,18 @@ namespace KingOfTheHill.ColorCraze
             Color.Cyan,
             Color.Violet
         };
+
+        private void ShowPlayerStatisticsButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new Form();
+            var dg = new DataGrid();
+            var temp = _matchResults.OrderBy(mr=>mr.AverageCapturedCellsPerGame);
+            dg.DataSource = temp.ToList();
+            dialog.Controls.Add(dg);
+            dg.Dock = DockStyle.Fill;
+            dialog.ShowDialog(this);
+            
+            
+        }
     }
 }
