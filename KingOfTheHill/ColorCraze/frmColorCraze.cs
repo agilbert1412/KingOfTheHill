@@ -23,7 +23,18 @@ namespace KingOfTheHill.ColorCraze
         List<ColorCrazePlayer> currentPlayers;
 
         Dictionary<PlayerInfo, int> currentScores;
+		
+		public class PlayerMatchResult
+        {
+            [Browsable(false)]
+            public PlayerInfo Player { get; set; }
 
+            public string PlayerName => Player.Name;
+            public int TotalGames { get; set; }
+            public double TotalCapturedCells { get; set; }
+            public double AverageCapturedCellsPerGame => TotalCapturedCells / TotalGames;
+        }
+		
         public frmColorCraze()
         {
             InitializeComponent();
