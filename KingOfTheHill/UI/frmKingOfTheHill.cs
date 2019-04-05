@@ -148,8 +148,8 @@ namespace KingOfTheHill.UI
         {
             _controller.DoGameStep(pnlGame);
 
-            _controller.ShowScoresLabels(groupStatus);
-            _controller.ShowStatusLabels(groupScores);
+            _controller.ShowScoresLabels(groupScores);
+            _controller.ShowStatusLabels(groupStatus);
 
             lblGameNum.Text = _controller.GetCurrentGameText();
 

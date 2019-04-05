@@ -13,6 +13,8 @@ namespace KingOfTheHill.Spleef.SpleefPlayers
         public Stopwatch swPlays = new Stopwatch();
         public int nbPlays = 0;
 
+        protected Random RandomGen = new Random();
+
         public SpleefPlayer()
         {
             Info = new SpleefPlayerInfo();

@@ -38,7 +38,7 @@ namespace KingOfTheHill.Spleef
             Players = newLst;
         }
 
-        private List<SpleefPlayer> GetAlivePlayers()
+        public List<SpleefPlayer> GetAlivePlayers()
         {
             return Players.Where(IsAlive).ToList();
         }
@@ -81,9 +81,11 @@ namespace KingOfTheHill.Spleef
 
             var infos = Players.Select(GetSpleefInfo).ToList();
 
+            var playersAlive = GetAlivePlayers();
+
             var decisions = new Dictionary<SpleefPlayer, SpleefDecision>();
 
-            foreach (var p in GetAlivePlayers())
+            foreach (var p in playersAlive)
             {
                 p.swPlays.Start();
                 SpleefDecision decision;
@@ -124,8 +126,8 @@ namespace KingOfTheHill.Spleef
                                 if (destination.X >= 0 && destination.Y >= 0 && destination.X < Board.Width &&
                                     destination.Y < Board.Height)
                                 {
+                                    ((SpleefGridSquare) (Board.Squares[thisPlayerInfo.CurrentLocation.X, thisPlayerInfo.CurrentLocation.Y])).Destroy();
                                     thisPlayerInfo.CurrentLocation = destination;
-                                    ((SpleefGridSquare) (Board.Squares[destination.X, destination.Y])).Destroy();
                                 }
                             }
                             break;

@@ -1,4 +1,5 @@
-﻿using KingOfTheHill.Players;
+﻿using System;
+using KingOfTheHill.Players;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
@@ -23,12 +24,15 @@ namespace KingOfTheHill.Spleef
 
         private List<ColorCrazePlayerMatchResult> _matchResults;
 
+        private Dictionary<PlayerInfo, int> turnDied;
+
         public void Initialize()
         {
             _currentGames = new List<SpleefGame>();
             _currentPlayers = new List<SpleefPlayer>();
             _currentScores = new Dictionary<PlayerInfo, int>();
             _playerFactory = new SpleefPlayerFactory();
+            turnDied = new Dictionary<PlayerInfo, int>();
         }
 
         public IPlayerFactory GetPlayerFactory()
@@ -87,10 +91,20 @@ namespace KingOfTheHill.Spleef
             var allInfos = _currentPlayers.Select(x => x.Info as SpleefPlayerInfo).ToList();
             _matchResults = PrepareMatchResultList(_currentMaxGames, allInfos);
 
+            ResetTurnsDied();
             foreach (var p in _currentPlayers)
             {
                 _currentScores.Add(p.Info, 0);
                 p.StartAll(allInfos);
+            }
+        }
+
+        private void ResetTurnsDied()
+        {
+            turnDied.Clear();
+            foreach (var p in _currentPlayers)
+            {
+                turnDied.Add(p.GetInfo(), 0);
             }
         }
 
@@ -115,13 +129,31 @@ namespace KingOfTheHill.Spleef
         {
             if (_currentGames.Any())
             {
-                var gameIsOver = _currentGames.First().PlayStep(_currentScores);
+                var thisGame = _currentGames.First();
+
+                var playersAliveBefore = thisGame.GetAlivePlayers();
+                var nbPlayersAliveBefore = playersAliveBefore.Count;
+
+                var gameIsOver = thisGame.PlayStep(_currentScores);
+
+                var playersAliveAfter = thisGame.GetAlivePlayers();
+                var nbPlayersAliveAfter = playersAliveAfter.Count;
+
+                var nbPointsEarned = Math.Max(nbPlayersAliveBefore - nbPlayersAliveAfter, 0);
+
+                foreach (var p in playersAliveAfter)
+                {
+                    _currentScores[p.Info] += nbPointsEarned;
+                    turnDied[p.Info]++;
+                }
+
+
                 pnlGame.Refresh();
                 Application.DoEvents();
 
                 if (gameIsOver)
                 {
-                    var scores = _currentGames.First().GetStatus().OrderByDescending(x => x.Value).ToList();
+                    var scores = thisGame.GetStatus().OrderByDescending(x => x.Value).ToList();
                     
                     foreach (var score in scores)
                     {
@@ -134,23 +166,9 @@ namespace KingOfTheHill.Spleef
                             playerResult.TotalGames++;
                         }
                     }
-                    
-                    var scoreAtThisPosition = scores.Count() - 1;
-                    for (var i = 0; i < scores.Count(); i++)
-                    {
-                        var pInfo = scores[i].Key as SpleefPlayerInfo;
-
-                        _currentScores[pInfo] += scoreAtThisPosition;
-
-                        while (i + 1 < scores.Count && scores[i + 1].Value == scores[i].Value)
-                        {
-                            i++;
-                            _currentScores[pInfo] += scoreAtThisPosition;
-                        }
-                        scoreAtThisPosition = scores.Count - 2 - i;
-                    }
 
                     _currentGames.RemoveAt(0);
+                    ResetTurnsDied();
                 }
 
                 if (_currentGames.Any())
@@ -179,9 +197,17 @@ namespace KingOfTheHill.Spleef
         {
             if (_currentGames.Any())
             {
-                var orderedScores = _currentGames.First().GetStatus().OrderByDescending(x => x.Value).ToList();
+                var allStatus = _currentGames.First().GetStatus();
+                var usefulStatus = allStatus.Where(x => x.Value).ToList();
+                var deadPlayers = allStatus.Where(x => !x.Value).OrderByDescending(x => turnDied[x.Key]).ToList();
+
+                foreach (var p in deadPlayers)
+                {
+                    usefulStatus.Add(p);
+                }
+
                 int i = 0;
-                for (i = 0; i < orderedScores.Count(); i++)
+                for (i = 0; i < usefulStatus.Count(); i++)
                 {
                     var labelBotName = LBL_STATUS_BOT_NAME + i;
                     var labelStatusName = LBL_STATUS_BOT + i;
@@ -207,16 +233,16 @@ namespace KingOfTheHill.Spleef
                     scoreLabel.Size = new Size(40, 13);
                     botLabel.Size = new Size(80, 13);
 
-                    var thisPlayer = _currentPlayers.First(x => x.Info.ID == orderedScores[i].Key.ID).GetInfo();
+                    var thisPlayer = _currentPlayers.First(x => x.Info.ID == usefulStatus[i].Key.ID).GetInfo();
 
                     botLabel.ForeColor = thisPlayer.PlayerColor;
-                    scoreLabel.ForeColor = thisPlayer.PlayerColor;
+                    scoreLabel.ForeColor = usefulStatus[i].Value ? Color.DarkGreen : Color.DarkRed;
 
                     botLabel.BackColor = Color.Transparent;
                     scoreLabel.BackColor = Color.Transparent;
 
-                    botLabel.Text = _currentGames.First().GetTime(thisPlayer) + " " + orderedScores[i].Key.Name;
-                    scoreLabel.Text = orderedScores[i].Value.ToString();
+                    botLabel.Text = _currentGames.First().GetTime(thisPlayer) + " " + usefulStatus[i].Key.Name;
+                    scoreLabel.Text = usefulStatus[i].Value ? "ALIVE" : "DEAD";
 
                     botLabel.Visible = true;
                     scoreLabel.Visible = true;
