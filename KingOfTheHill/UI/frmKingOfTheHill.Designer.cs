@@ -1,6 +1,6 @@
-﻿namespace KingOfTheHill.ColorCraze
+﻿namespace KingOfTheHill.UI
 {
-    partial class frmColorCraze
+    partial class frmKingOfTheHill
     {
         /// <summary>
         /// Required designer variable.
@@ -66,8 +66,8 @@
             // 
             // pnlGame
             // 
-            this.pnlGame.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.pnlGame.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlGame.Location = new System.Drawing.Point(12, 12);
             this.pnlGame.Name = "pnlGame";
@@ -281,7 +281,7 @@
             // 
             // groupScores
             // 
-            this.groupScores.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupScores.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupScores.Controls.Add(this.lblScoresScore);
             this.groupScores.Controls.Add(this.lblScoresBot);
@@ -312,7 +312,7 @@
             // 
             // groupStatus
             // 
-            this.groupStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.groupStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupStatus.Controls.Add(this.lblStatusSquares);
             this.groupStatus.Controls.Add(this.lblStatusBot);

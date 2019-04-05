@@ -1,11 +1,12 @@
-﻿using KingOfTheHill.ColorCraze.Players;
-using KingOfTheHill.Players;
+﻿using KingOfTheHill.Players;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KingOfTheHill.ColorCraze.ColorCrazeBoard;
+using KingOfTheHill.ColorCraze.ColorCrazePlayers;
 
 namespace KingOfTheHill.ColorCraze
 {
@@ -13,7 +14,7 @@ namespace KingOfTheHill.ColorCraze
     {
         private static Random rand = new Random();
 
-        public ColorCrazeBoard Board { get; set; }
+        public ColorCrazeBoard.ColorCrazeBoard Board { get; set; }
         public List<ColorCrazePlayer> Players { get; set; }
 
         private int PlayerToPlay = 0;
@@ -21,7 +22,7 @@ namespace KingOfTheHill.ColorCraze
 
         public ColorCrazeGame(List<ColorCrazePlayer> players)
         {
-            Board = new ColorCrazeBoard(players.Count, players.Count);
+            Board = new ColorCrazeBoard.ColorCrazeBoard(players.Count, players.Count);
             Players = players;
         }
 
@@ -61,45 +62,41 @@ namespace KingOfTheHill.ColorCraze
                 StartGame(playersScores);
             }
 
-            var infos = Players.Select(x => x.GetInfo()).ToList();
+            var infos = Players.Select(x => GetColorCrazeInfo(x)).ToList();
             
             Players[PlayerToPlay].swPlays.Start();
-            TurnAction action;
+            ColorCrazeDecision decision;
             try
             {
-                action = Players[PlayerToPlay].PlayTurn(infos, Board);
+                decision = Players[PlayerToPlay].PlayTurn(infos, Board);
             }
-            catch (Exception e)
+            catch (Exception)
             {
-                action = new TurnAction(Players[PlayerToPlay].Info, new ColorCrazeDecision(new Point(0, 0)));
+                decision = new ColorCrazeDecision(new Point(0, 0));
             }
             Players[PlayerToPlay].nbPlays++;
             Players[PlayerToPlay].swPlays.Stop();
 
-            if (action.ActionTaken is ColorCrazeDecision)
+            var absX = Math.Abs(decision.Movement.X);
+            var absY = Math.Abs(decision.Movement.Y);
+            var totalDistance = absX + absY;
+
+            var movement = decision.Movement;
+
+            if (totalDistance > 1 || absX > 1 || absY > 1)
             {
-                var decision = (ColorCrazeDecision)action.ActionTaken;
+                movement = new Point(0, 0);
+            }
 
-                var absX = Math.Abs(decision.Movement.X);
-                var absY = Math.Abs(decision.Movement.Y);
-                var totalDistance = absX + absY;
-
-                var movement = decision.Movement;
-
-                if (totalDistance > 1 || absX > 1 || absY > 1)
+            var thisPlayerInfo = GetColorCrazeInfo(Players[PlayerToPlay]);
+            var destination = new Point(thisPlayerInfo.CurrentLocation.X + movement.X, thisPlayerInfo.CurrentLocation.Y + movement.Y);
+            if (destination.X >= 0 && destination.Y >= 0 && destination.X < Board.Width && destination.Y < Board.Height)
+            {
+                if (Players.All(x => GetColorCrazeInfo(x).CurrentLocation != destination))
                 {
-                    movement = new Point(0, 0);
-                }
-
-                var destination = new Point(Players[PlayerToPlay].GetInfo().CurrentLocation.X + movement.X, Players[PlayerToPlay].GetInfo().CurrentLocation.Y + movement.Y);
-                if (destination.X >= 0 && destination.Y >= 0 && destination.X < Board.Width && destination.Y < Board.Height)
-                {
-                    if (!Players.Any(x => x.GetInfo().CurrentLocation == destination))
-                    {
-                        Players[PlayerToPlay].GetInfo().CurrentLocation = destination;
-                        Board.Squares[destination.X, destination.Y].Color = Lighten(Players[PlayerToPlay].GetInfo().PlayerColor, 20);
-                        ((ColorCrazeGridSquare)(Board.Squares[destination.X, destination.Y])).Owner = Players[PlayerToPlay].Info.ID;
-                    }
+                    thisPlayerInfo.CurrentLocation = destination;
+                    Board.Squares[destination.X, destination.Y].Color = Lighten(Players[PlayerToPlay].GetInfo().PlayerColor, 20);
+                    ((ColorCrazeGridSquare)(Board.Squares[destination.X, destination.Y])).Owner = Players[PlayerToPlay].Info.ID;
                 }
             }
 
@@ -114,17 +111,23 @@ namespace KingOfTheHill.ColorCraze
             return false;
         }
 
+        private ColorCrazePlayerInfo GetColorCrazeInfo(Player p)
+        {
+            return p.GetInfo() as ColorCrazePlayerInfo;
+        }
+
         private void StartGame(Dictionary<PlayerInfo, int> playersAndScores)
         {
             foreach (var player in Players)
             {
-                player.GetInfo().CurrentLocation = new Point(rand.Next(0, Board.Width), rand.Next(0, Board.Height));
-                while (Players.Any(x => x != player && x.GetInfo().CurrentLocation == player.GetInfo().CurrentLocation))
+                var thisPlayerInfo = GetColorCrazeInfo(player);
+                thisPlayerInfo.CurrentLocation = new Point(rand.Next(0, Board.Width), rand.Next(0, Board.Height));
+                while (Players.Any(x => x != player && GetColorCrazeInfo(x).CurrentLocation == thisPlayerInfo.CurrentLocation))
                 {
-                    player.GetInfo().CurrentLocation = new Point(rand.Next(0, Board.Width), rand.Next(0, Board.Height));
+                    thisPlayerInfo.CurrentLocation = new Point(rand.Next(0, Board.Width), rand.Next(0, Board.Height));
                 }
-                Board.Squares[player.GetInfo().CurrentLocation.X, player.GetInfo().CurrentLocation.Y].Color = Lighten(player.GetInfo().PlayerColor, 20);
-                ((ColorCrazeGridSquare)(Board.Squares[player.GetInfo().CurrentLocation.X, player.GetInfo().CurrentLocation.Y])).Owner = player.Info.ID;
+                Board.Squares[thisPlayerInfo.CurrentLocation.X, thisPlayerInfo.CurrentLocation.Y].Color = Lighten(thisPlayerInfo.PlayerColor, 20);
+                ((ColorCrazeGridSquare)(Board.Squares[thisPlayerInfo.CurrentLocation.X, thisPlayerInfo.CurrentLocation.Y])).Owner = player.Info.ID;
                 
                 player.StartGame(playersAndScores);
             }
@@ -142,7 +145,7 @@ namespace KingOfTheHill.ColorCraze
                 );
         }
 
-        public override Dictionary<PlayerInfo, int> GetStatus()
+        public Dictionary<PlayerInfo, int> GetStatus()
         {
             var status = new Dictionary<PlayerInfo, int>();
 

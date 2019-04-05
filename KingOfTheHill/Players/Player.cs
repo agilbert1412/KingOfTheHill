@@ -19,5 +19,10 @@ namespace KingOfTheHill.Players
         {
             Info = new PlayerInfo(name, id);
         }
+
+        internal virtual PlayerInfo GetInfo()
+        {
+            return Info;
+        }
     }
 }

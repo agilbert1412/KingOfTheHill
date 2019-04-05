@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,6 +11,7 @@ namespace KingOfTheHill.Players
     {
         public string Name { get; set; }
         public int ID { get; set; }
+        public Color PlayerColor { get; set; }
 
         public PlayerInfo()
         {

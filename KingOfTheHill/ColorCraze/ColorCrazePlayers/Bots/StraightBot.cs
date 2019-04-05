@@ -1,12 +1,9 @@
-﻿using KingOfTheHill.Players;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.Players
+namespace KingOfTheHill.ColorCraze.ColorCrazePlayers.Bots
 {
     public class StraightBot : ColorCrazePlayer
     {
@@ -25,7 +22,7 @@ namespace KingOfTheHill.ColorCraze.Players
             lastPosition = new Point(-1, -1);
         }
 
-        public override TurnAction PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board board)
+        public override ColorCrazeDecision PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board.Board board)
         {
             // Si on we don't have a current direction, we choose one at random
             if (currentDirection == Point.Empty)
@@ -65,7 +62,7 @@ namespace KingOfTheHill.ColorCraze.Players
             // Let's remember our position
             lastPosition = GetInfo().CurrentLocation;
 
-            var action = new TurnAction(Info, new ColorCrazeDecision(currentDirection));
+            var action = new ColorCrazeDecision(currentDirection);
             return action;
         }
     }

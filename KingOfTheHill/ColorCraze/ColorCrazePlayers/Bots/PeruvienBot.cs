@@ -1,12 +1,9 @@
-﻿using KingOfTheHill.Players;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.Players
+namespace KingOfTheHill.ColorCraze.ColorCrazePlayers.Bots
 {
     public class PeruvienBot : ColorCrazePlayer
     {
@@ -56,11 +53,11 @@ namespace KingOfTheHill.ColorCraze.Players
             }
         }
 
-        public override TurnAction PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board board)
+        public override ColorCrazeDecision PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board.Board board)
         {
-            Update(allPlayers, board as ColorCrazeBoard);
+            Update(allPlayers, board as ColorCrazeBoard.ColorCrazeBoard);
 
-            var action = new TurnAction(Info, new ColorCrazeDecision(GetBestMove()));
+            var action = new ColorCrazeDecision(GetBestMove());
             return action;
         }
 
@@ -141,7 +138,7 @@ namespace KingOfTheHill.ColorCraze.Players
             return val;
         }
 
-        private void Update(List<ColorCrazePlayerInfo> allPlayers, ColorCrazeBoard board)
+        private void Update(List<ColorCrazePlayerInfo> allPlayers, ColorCrazeBoard.ColorCrazeBoard board)
         {            
             UpdateValidMove(allPlayers, board);
             if (board.CountSquaresOfOwner(-1) < boardSize * boardSize * 0.1)
@@ -152,7 +149,7 @@ namespace KingOfTheHill.ColorCraze.Players
             }
         }
 
-        private void UpdateValidMove(List<ColorCrazePlayerInfo> allPlayers, ColorCrazeBoard board)
+        private void UpdateValidMove(List<ColorCrazePlayerInfo> allPlayers, ColorCrazeBoard.ColorCrazeBoard board)
         {
             position = GetInfo().CurrentLocation;
 
@@ -176,7 +173,7 @@ namespace KingOfTheHill.ColorCraze.Players
                 validMove.Add(GetPossibleCase(pts, board, ColorCrazeDirection.Down));            
         }
 
-        private static PossibleCase GetPossibleCase(Point pts, ColorCrazeBoard board, ColorCrazeDirection direction)
+        private static PossibleCase GetPossibleCase(Point pts, ColorCrazeBoard.ColorCrazeBoard board, ColorCrazeDirection direction)
         {
             PossibleCase possibleCase = new PossibleCase
             {

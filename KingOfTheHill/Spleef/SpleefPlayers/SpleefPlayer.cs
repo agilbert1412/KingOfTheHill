@@ -2,24 +2,25 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
+using System.Linq;
 using KingOfTheHill.Board;
 using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.ColorCrazePlayers
+namespace KingOfTheHill.Spleef.SpleefPlayers
 {
-    public abstract class ColorCrazePlayer : Player
+    public abstract class SpleefPlayer : Player
     {
         public Stopwatch swPlays = new Stopwatch();
         public int nbPlays = 0;
 
-        public ColorCrazePlayer()
+        public SpleefPlayer()
         {
-            Info = new ColorCrazePlayerInfo();
+            Info = new SpleefPlayerInfo();
         }
 
-        public ColorCrazePlayer(string name, int id)
+        public SpleefPlayer(string name, int id)
         {
-            Info = new ColorCrazePlayerInfo(name, id);
+            Info = new SpleefPlayerInfo(name, id);
         }
 
         public void Paint(Graphics gfx, GridBoard board, Rectangle bounds)
@@ -27,9 +28,9 @@ namespace KingOfTheHill.ColorCraze.ColorCrazePlayers
             var stepX = bounds.Width / board.Width;
             var stepY = bounds.Height / board.Height;
 
-            var ellipse = new Rectangle(((ColorCrazePlayerInfo)Info).CurrentLocation.X * stepX, ((ColorCrazePlayerInfo)Info).CurrentLocation.Y * stepY, stepX, stepY);
+            var ellipse = new Rectangle(((SpleefPlayerInfo)Info).CurrentLocation.X * stepX, ((SpleefPlayerInfo)Info).CurrentLocation.Y * stepY, stepX, stepY);
 
-            gfx.FillEllipse(new SolidBrush(((ColorCrazePlayerInfo)Info).PlayerColor), ellipse);
+            gfx.FillEllipse(new SolidBrush(((SpleefPlayerInfo)Info).PlayerColor), ellipse);
             gfx.DrawEllipse(Pens.Black, ellipse);
 
             var drawFont = new Font("Arial", stepX / 10);
@@ -50,15 +51,20 @@ namespace KingOfTheHill.ColorCraze.ColorCrazePlayers
             return (Math.Abs(x1 - x2) + Math.Abs(y1 - y2));
         }
 
-        internal new ColorCrazePlayerInfo GetInfo()
+        internal override PlayerInfo GetInfo()
         {
-            return (ColorCrazePlayerInfo)Info;
+            return (SpleefPlayerInfo)Info;
         }
 
-        public abstract void StartAll(List<PlayerInfo> allPlayers);
+        public abstract void StartAll(List<SpleefPlayerInfo> allPlayers);
 
         public abstract void StartGame(Dictionary<PlayerInfo, int> allPlayersAndScores);
 
-        public abstract ColorCrazeDecision PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board.Board board);
+        public abstract SpleefDecision PlayTurn(List<SpleefPlayerInfo> allPlayers, SpleefBoard.SpleefBoard board);
+
+        public List<SpleefPlayerInfo> GetAlivePlayers(List<SpleefPlayerInfo> allPlayers, SpleefBoard.SpleefBoard board)
+        {
+            return allPlayers.Where(x => board[x.CurrentLocation.X, x.CurrentLocation.Y].IsSolid).ToList();
+        }
     }
 }

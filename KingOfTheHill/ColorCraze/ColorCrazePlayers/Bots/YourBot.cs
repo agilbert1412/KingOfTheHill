@@ -1,12 +1,9 @@
-﻿using KingOfTheHill.Players;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.Players
+namespace KingOfTheHill.ColorCraze.ColorCrazePlayers.Bots
 {
     public class YourBot : ColorCrazePlayer
     {
@@ -22,10 +19,10 @@ namespace KingOfTheHill.ColorCraze.Players
 
         }
 
-        public override TurnAction PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board board)
+        public override ColorCrazeDecision PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board.Board board)
         {
             // I suck at this game
-            var action = new TurnAction(Info, new ColorCrazeDecision(Point.Empty));
+            var action = new ColorCrazeDecision(Point.Empty);
             return action;
         }
     }

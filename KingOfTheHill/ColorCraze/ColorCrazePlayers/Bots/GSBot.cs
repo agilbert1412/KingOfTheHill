@@ -1,12 +1,11 @@
-﻿using KingOfTheHill.Players;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KingOfTheHill.Board;
+using KingOfTheHill.ColorCraze.ColorCrazeBoard;
+using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.Players
+namespace KingOfTheHill.ColorCraze.ColorCrazePlayers.Bots
 {
 
 
@@ -88,7 +87,7 @@ namespace KingOfTheHill.ColorCraze.Players
         {
             private readonly List<ITurnStrategy> strategies;
 
-            public TurnEvaluator(Board board)
+            public TurnEvaluator(Board.Board board)
             {
                 var gridBoard = board as GridBoard;
                 strategies = new List<ITurnStrategy>()
@@ -164,7 +163,7 @@ namespace KingOfTheHill.ColorCraze.Players
 
         }
 
-        public override TurnAction PlayTurn(List<ColorCrazePlayerInfo> players, Board board)
+        public override ColorCrazeDecision PlayTurn(List<ColorCrazePlayerInfo> players, Board.Board board)
         {
             var playersLocationMap = new Dictionary<int, Point>();
             foreach (var player in players)
@@ -179,8 +178,8 @@ namespace KingOfTheHill.ColorCraze.Players
                 playersLocationMap);
 
             return nextMovementPoint.Direction == null
-                ? new TurnAction(Info, new ColorCrazeDecision(zBotPlayer.CurrentLocation))
-                : new TurnAction(Info, new ColorCrazeDecision((ColorCrazeDirection)nextMovementPoint.Direction));
+                ? new ColorCrazeDecision(zBotPlayer.CurrentLocation)
+                : new ColorCrazeDecision((ColorCrazeDirection)nextMovementPoint.Direction);
         }
     }
 

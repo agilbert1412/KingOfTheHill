@@ -1,11 +1,8 @@
-﻿using KingOfTheHill.Players;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.Players
+namespace KingOfTheHill.ColorCraze.ColorCrazePlayers.Bots
 {
     public class TrollBot : ColorCrazePlayer
     {
@@ -21,11 +18,11 @@ namespace KingOfTheHill.ColorCraze.Players
 
         }
 
-        public override TurnAction PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board board)
+        public override ColorCrazeDecision PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board.Board board)
         {
             var directions = Enum.GetValues(typeof(ColorCrazeDirection));
             var randomDir = (ColorCrazeDirection)directions.GetValue(r.Next(directions.Length));
-            var action = new TurnAction(Info, new ColorCrazeDecision(randomDir));
+            var action = new ColorCrazeDecision(randomDir);
             return action;
         }
     }

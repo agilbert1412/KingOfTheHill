@@ -1,13 +1,11 @@
-﻿using KingOfTheHill.ColorCraze.Players;
-using KingOfTheHill.Players;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KingOfTheHill.ColorCraze.ColorCrazeBoard;
+using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.Players
+namespace KingOfTheHill.ColorCraze.ColorCrazePlayers.Bots
 {
     class AANBot : ColorCrazePlayer
     {
@@ -15,12 +13,13 @@ namespace KingOfTheHill.ColorCraze.Players
 
         private List<Point> pointToContest;
 
-        public override TurnAction PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board board)
+        public override ColorCrazeDecision PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board.Board board)
         {
             //We dont went to go on these points ...
             List<Point> badPoints = new List<Point>();
 
-            Point actualPosition = GetInfo().CurrentLocation;
+            var myInfo = ((ColorCrazePlayerInfo)GetInfo());
+            Point actualPosition = myInfo.CurrentLocation;
 
             //For all the player, we do something...
             foreach(ColorCrazePlayerInfo player in allPlayers)
@@ -28,41 +27,41 @@ namespace KingOfTheHill.ColorCraze.Players
                 badPoints.Add(player.CurrentLocation);    
             }
 
-            var colorBoard = (ColorCrazeBoard)board;
+            var colorBoard = (ColorCrazeBoard.ColorCrazeBoard)board;
             var playerColor = GetInfo().PlayerColor;
 
             //Right
             Point right = new Point(actualPosition.X + 1, actualPosition.Y);
             if (!badPoints.Contains(right) && this.pointToContest.Contains(right) && (colorBoard.Squares[right.X,right.Y] as ColorCrazeGridSquare).Owner != GetInfo().ID )
             {
-                return new TurnAction(this.Info, new ColorCrazeDecision(ColorCrazeDirection.Right));
+                return new ColorCrazeDecision(ColorCrazeDirection.Right);
             }
 
             //Up
             Point up = new Point(actualPosition.X, actualPosition.Y - 1);
             if (!badPoints.Contains(up) && this.pointToContest.Contains(up) && (colorBoard.Squares[up.X, up.Y] as ColorCrazeGridSquare).Owner != GetInfo().ID )
             {
-                return new TurnAction(this.Info, new ColorCrazeDecision(ColorCrazeDirection.Up));
+                return new ColorCrazeDecision(ColorCrazeDirection.Up);
             }
 
             //Left
             Point left = new Point(actualPosition.X - 1, actualPosition.Y);
             if (!badPoints.Contains(left) && this.pointToContest.Contains(left) && (colorBoard.Squares[left.X, left.Y] as ColorCrazeGridSquare).Owner != GetInfo().ID )
             {
-                return new TurnAction(this.Info, new ColorCrazeDecision(ColorCrazeDirection.Left));
+                return new ColorCrazeDecision(ColorCrazeDirection.Left);
             }
 
             //Bottom
             Point down = new Point(actualPosition.X, actualPosition.Y + 1);
             if (!badPoints.Contains(down) && this.pointToContest.Contains(down) && (colorBoard.Squares[down.X, down.Y] as ColorCrazeGridSquare).Owner != GetInfo().ID )
             {
-                return new TurnAction(this.Info, new ColorCrazeDecision(ColorCrazeDirection.Down));
+                return new ColorCrazeDecision(ColorCrazeDirection.Down);
             }
 
             //Default
             var directions = Enum.GetValues(typeof(ColorCrazeDirection));
             var randomDir = (ColorCrazeDirection)directions.GetValue(new Random().Next(directions.Length));
-            var action = new TurnAction(Info, new ColorCrazeDecision(randomDir));
+            var action = new ColorCrazeDecision(randomDir);
             return action;
 
         }
@@ -77,9 +76,11 @@ namespace KingOfTheHill.ColorCraze.Players
             //List of who contains the quarter of the point (which we try to contest)
             this.pointToContest = new List<Point>();
 
-            this.pointToContest.Add(this.GetInfo().CurrentLocation);
+            var myInfo = ((ColorCrazePlayerInfo) GetInfo());
 
-            Point current = this.GetInfo().CurrentLocation;
+            this.pointToContest.Add(myInfo.CurrentLocation);
+
+            Point current = myInfo.CurrentLocation;
 
             //Beatiful code...
             while (this.pointToContest.Count < Math.Pow(this.nbrPlayers,2)/4)

@@ -1,11 +1,10 @@
-﻿using KingOfTheHill.Players;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
+using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.Players
+namespace KingOfTheHill.ColorCraze.ColorCrazePlayers.Bots
 {
     public class JealousBot : ColorCrazePlayer
     {
@@ -118,7 +117,7 @@ namespace KingOfTheHill.ColorCraze.Players
             public int MyId { private get; set; }
 
 
-            public List<EnemyData> AnalyzeBoard(ColorCrazeBoard board, int myX, int myY)
+            public List<EnemyData> AnalyzeBoard(ColorCrazeBoard.ColorCrazeBoard board, int myX, int myY)
             {
                 var enemies = new List<EnemyData>();
 
@@ -178,7 +177,7 @@ namespace KingOfTheHill.ColorCraze.Players
 
                 return enemies;
             }
-            public List<NextMoveCandidate> GetPossibleMoves(ColorCrazeBoard board, List<ColorCrazePlayerInfo> allPlayers, int myX, int myY)
+            public List<NextMoveCandidate> GetPossibleMoves(ColorCrazeBoard.ColorCrazeBoard board, List<ColorCrazePlayerInfo> allPlayers, int myX, int myY)
             {
                 var nextMoves = new List<NextMoveCandidate>();
 
@@ -278,14 +277,14 @@ namespace KingOfTheHill.ColorCraze.Players
             _boardAnalysis = new BoardAnalysis {MyId = Info.ID};
         }
 
-        public override TurnAction PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board board)
+        public override ColorCrazeDecision PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board.Board board)
         {
             var myX = ((ColorCrazePlayerInfo)Info).CurrentLocation.X;
             var myY = ((ColorCrazePlayerInfo)Info).CurrentLocation.Y;
-            var enemies = _boardAnalysis.AnalyzeBoard((ColorCrazeBoard)board, myX, myY);
-            var nextMoves = _boardAnalysis.GetPossibleMoves((ColorCrazeBoard)board, allPlayers, myX, myY);
+            var enemies = _boardAnalysis.AnalyzeBoard((ColorCrazeBoard.ColorCrazeBoard)board, myX, myY);
+            var nextMoves = _boardAnalysis.GetPossibleMoves((ColorCrazeBoard.ColorCrazeBoard)board, allPlayers, myX, myY);
             var direction = _turnAdviser.AdviceNextTurn(enemies, nextMoves);
-            var action = new TurnAction(Info, new ColorCrazeDecision(direction));
+            var action = new ColorCrazeDecision(direction);
             return action;
         }
     }

@@ -1,18 +1,18 @@
 ﻿using System.Drawing;
 using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.ColorCrazePlayers
+namespace KingOfTheHill.Spleef.SpleefPlayers
 {
-    public class ColorCrazePlayerInfo : PlayerInfo
+    public class SpleefPlayerInfo : PlayerInfo
     {
         public Point CurrentLocation { get; set; }
 
-        public ColorCrazePlayerInfo() : base()
+        public SpleefPlayerInfo() : base()
         {
             CurrentLocation = new Point(0, 0);
         }
 
-        public ColorCrazePlayerInfo(string name, int id) : base(name, id)
+        public SpleefPlayerInfo(string name, int id) : base(name, id)
         {
             CurrentLocation = new Point(0, 0);
         }

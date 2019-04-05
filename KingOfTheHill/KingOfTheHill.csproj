@@ -70,6 +70,7 @@
     <Compile Include="Board\GridSquare.cs" />
     <Compile Include="ColorCraze\ColorCrazeBoard\ColorCrazeBoard.cs" />
     <Compile Include="ColorCraze\ColorCrazeBoard\ColorCrazeGridSquare.cs" />
+    <Compile Include="ColorCraze\ColorCrazeController.cs" />
     <Compile Include="ColorCraze\ColorCrazeDecision.cs" />
     <Compile Include="ColorCraze\ColorCrazePlayers\Bots\AANBot.cs" />
     <Compile Include="ColorCraze\ColorCrazePlayers\Bots\FillerBot.cs" />
@@ -84,16 +85,28 @@
     <Compile Include="ColorCraze\ColorCrazePlayers\Bots\TrollBot.cs" />
     <Compile Include="ColorCraze\ColorCrazeGame.cs" />
     <Compile Include="ColorCraze\ColorCrazePlayers\ColorCrazePlayerInfo.cs" />
-    <Compile Include="ColorCraze\frmColorCraze.cs">
+    <Compile Include="Decision.cs" />
+    <Compile Include="IPlayerFactory.cs" />
+    <Compile Include="IKingOfTheHillController.cs" />
+    <Compile Include="Spleef\SpleefBoard\SpleefBoard.cs" />
+    <Compile Include="Spleef\SpleefBoard\SpleefGridSquare.cs" />
+    <Compile Include="Spleef\SpleefGame.cs" />
+    <Compile Include="Spleef\SpleefDecision.cs" />
+    <Compile Include="Spleef\SpleefController.cs" />
+    <Compile Include="Spleef\SpleefPlayers\Bots\YourBot.cs" />
+    <Compile Include="Spleef\SpleefPlayers\SpleefPlayerInfo.cs" />
+    <Compile Include="Spleef\SpleefPlayers\SpleefPlayer.cs" />
+    <Compile Include="Spleef\SpleefPlayers\SpleefPlayerFactory.cs" />
+    <Compile Include="UI\frmKingOfTheHill.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ColorCraze\frmColorCraze.Designer.cs">
-      <DependentUpon>frmColorCraze.cs</DependentUpon>
+    <Compile Include="UI\frmKingOfTheHill.Designer.cs">
+      <DependentUpon>frmKingOfTheHill.cs</DependentUpon>
     </Compile>
-    <Compile Include="frmGameSelector.cs">
+    <Compile Include="UI\frmGameSelector.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="frmGameSelector.Designer.cs">
+    <Compile Include="UI\frmGameSelector.Designer.cs">
       <DependentUpon>frmGameSelector.cs</DependentUpon>
     </Compile>
     <Compile Include="Game.cs" />
@@ -102,12 +115,11 @@
     <Compile Include="Players\PlayerInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Decision.cs" />
     <Compile Include="TurnAction.cs" />
-    <EmbeddedResource Include="ColorCraze\frmColorCraze.resx">
-      <DependentUpon>frmColorCraze.cs</DependentUpon>
+    <EmbeddedResource Include="UI\frmKingOfTheHill.resx">
+      <DependentUpon>frmKingOfTheHill.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="frmGameSelector.resx">
+    <EmbeddedResource Include="UI\frmGameSelector.resx">
       <DependentUpon>frmGameSelector.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -141,6 +153,7 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

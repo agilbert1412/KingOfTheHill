@@ -1,14 +1,14 @@
-﻿using KingOfTheHill.ColorCraze.Players;
-using KingOfTheHill.Players;
+﻿using KingOfTheHill.Players;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using KingOfTheHill.ColorCraze.ColorCrazePlayers.Bots;
 
 namespace KingOfTheHill.ColorCraze.ColorCrazePlayers
 {
-    public static class ColorCrazePlayerFactory
+    public class ColorCrazePlayerFactory : IPlayerFactory
     {
         static List<Type> typesOfPlayers = new List<Type>()
         {
@@ -24,14 +24,15 @@ namespace KingOfTheHill.ColorCraze.ColorCrazePlayers
             typeof(YourBot)
         };
 
-        public static List<string> GetPlayerTypes()
+        public List<string> GetPlayerTypes()
         {
             return typesOfPlayers.Select(x => x.ToString().Split('.').Last()).ToList();
         }
 
-        public static ColorCrazePlayer CreatePlayerOfType(int playerType)
+        public Player CreatePlayerOfType(int playerType)
         {
             ColorCrazePlayer player = (ColorCrazePlayer)Activator.CreateInstance(typesOfPlayers[playerType]);
+            player.Info.Name = player.GetType().ToString().Split('.').Last();
             return player;
         }
     }

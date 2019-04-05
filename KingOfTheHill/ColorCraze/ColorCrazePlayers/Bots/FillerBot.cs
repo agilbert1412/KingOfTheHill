@@ -1,12 +1,11 @@
-﻿using KingOfTheHill.Players;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KingOfTheHill.ColorCraze.ColorCrazeBoard;
+using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.Players
+namespace KingOfTheHill.ColorCraze.ColorCrazePlayers.Bots
 {
     public class FillerBot : ColorCrazePlayer
     {
@@ -22,9 +21,9 @@ namespace KingOfTheHill.ColorCraze.Players
 
         }
 
-        public override TurnAction PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board board)
+        public override ColorCrazeDecision PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board.Board board)
         {
-            var colorBoard = (ColorCrazeBoard)board;
+            var colorBoard = (ColorCrazeBoard.ColorCrazeBoard)board;
 
             // Distance la plus courte vers une case vide trouvée (ici aucune)
             var minDistance = (colorBoard.Width * 2) + 1;
@@ -75,13 +74,13 @@ namespace KingOfTheHill.ColorCraze.Players
 
             if (possibleDirections.Any())
             {
-                return new TurnAction(Info, new ColorCrazeDecision(possibleDirections[r.Next(0, possibleDirections.Count)]));
+                return new ColorCrazeDecision(possibleDirections[r.Next(0, possibleDirections.Count)]);
             }
             else
             {
                 var directions = Enum.GetValues(typeof(ColorCrazeDirection));
                 var randomDir = (ColorCrazeDirection)directions.GetValue(r.Next(directions.Length));
-                var action = new TurnAction(Info, new ColorCrazeDecision(randomDir));
+                var action = new ColorCrazeDecision(randomDir);
                 return action;
             }
         }

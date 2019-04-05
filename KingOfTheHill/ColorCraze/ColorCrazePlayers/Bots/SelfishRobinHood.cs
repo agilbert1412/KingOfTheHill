@@ -1,12 +1,11 @@
-﻿using KingOfTheHill.Players;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using KingOfTheHill.ColorCraze.ColorCrazeBoard;
+using KingOfTheHill.Players;
 
-namespace KingOfTheHill.ColorCraze.Players
+namespace KingOfTheHill.ColorCraze.ColorCrazePlayers.Bots
 {
     public class SelfishRobinHood : ColorCrazePlayer
     {
@@ -33,9 +32,9 @@ namespace KingOfTheHill.ColorCraze.Players
             }
         }
 
-        public override TurnAction PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board board)
+        public override ColorCrazeDecision PlayTurn(List<ColorCrazePlayerInfo> allPlayers, Board.Board board)
         {
-            var gridBoard = (ColorCrazeBoard) board;
+            var gridBoard = (ColorCrazeBoard.ColorCrazeBoard) board;
 
             var currentLocation = GetInfo().CurrentLocation;
 
@@ -63,13 +62,13 @@ namespace KingOfTheHill.ColorCraze.Players
                 }
             }
 
-            TurnAction action;
+            ColorCrazeDecision action;
 
             if (possibleDirections.Count > 0 && actionsWithScore.TryGetValue(possibleDirections.Last(), out int value))
             {
                 if(value != 0)
                 {
-                    action = new TurnAction(Info, new ColorCrazeDecision(possibleDirections.Last()));
+                    action = new ColorCrazeDecision(possibleDirections.Last());
                 }
                 else
                 {
@@ -78,13 +77,13 @@ namespace KingOfTheHill.ColorCraze.Players
             }
             else
             {
-                action = new TurnAction(Info, new ColorCrazeDecision(new Point(0,0)));
+                action = new ColorCrazeDecision(new Point(0,0));
             }
 
             return action;
         }
 
-        private int GetScoreForDirection(List<ColorCrazePlayerInfo> allPlayers, ColorCrazeBoard board, int x, int y)
+        private int GetScoreForDirection(List<ColorCrazePlayerInfo> allPlayers, ColorCrazeBoard.ColorCrazeBoard board, int x, int y)
         {
             int score = 0;
 
@@ -121,7 +120,7 @@ namespace KingOfTheHill.ColorCraze.Players
              return -1;
         }
 
-        private TurnAction getOutOfThereBot(ColorCrazeBoard gridBoard, List<ColorCrazeDirection> possDirections)
+        private ColorCrazeDecision getOutOfThereBot(ColorCrazeBoard.ColorCrazeBoard gridBoard, List<ColorCrazeDirection> possDirections)
         {
             int X = GetInfo().CurrentLocation.X;
             int Y = GetInfo().CurrentLocation.Y;
@@ -132,7 +131,7 @@ namespace KingOfTheHill.ColorCraze.Players
             {
                 if (possDirections.Contains(ColorCrazeDirection.Right))
                 {
-                    return new TurnAction(Info, new ColorCrazeDecision(ColorCrazeDirection.Right));
+                    return new ColorCrazeDecision(ColorCrazeDirection.Right);
                 }
             }
 
@@ -140,7 +139,7 @@ namespace KingOfTheHill.ColorCraze.Players
             {
                 if (possDirections.Contains(ColorCrazeDirection.Down))
                 {
-                    return new TurnAction(Info, new ColorCrazeDecision(ColorCrazeDirection.Down));
+                    return new ColorCrazeDecision(ColorCrazeDirection.Down);
                 }
             }
 
@@ -148,7 +147,7 @@ namespace KingOfTheHill.ColorCraze.Players
             {
                 if (possDirections.Contains(ColorCrazeDirection.Left))
                 {
-                    return new TurnAction(Info, new ColorCrazeDecision(ColorCrazeDirection.Left));
+                    return new ColorCrazeDecision(ColorCrazeDirection.Left);
                 }
             }
 
@@ -156,11 +155,11 @@ namespace KingOfTheHill.ColorCraze.Players
             {
                 if (possDirections.Contains(ColorCrazeDirection.Up))
                 {
-                    return new TurnAction(Info, new ColorCrazeDecision(ColorCrazeDirection.Up));
+                    return new ColorCrazeDecision(ColorCrazeDirection.Up);
                 }
             }
 
-            return new TurnAction(Info, new ColorCrazeDecision(new Point(0, 0)));
+            return new ColorCrazeDecision(new Point(0, 0));
         }
     }
 }

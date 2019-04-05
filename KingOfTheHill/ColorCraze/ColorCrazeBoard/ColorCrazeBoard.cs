@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using KingOfTheHill.Board;
 
-namespace KingOfTheHill.ColorCraze
+namespace KingOfTheHill.ColorCraze.ColorCrazeBoard
 {
     public class ColorCrazeBoard : GridBoard
     {
