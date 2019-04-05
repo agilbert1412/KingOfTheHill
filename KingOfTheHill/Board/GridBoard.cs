@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System;
+using System.Drawing;
 
 namespace KingOfTheHill.Board
 {
@@ -45,6 +46,28 @@ namespace KingOfTheHill.Board
                     gfx.FillRectangle(new SolidBrush(Squares[i, j].Color), (i * stepX) + 1, (j * stepY) + 1, stepX - 1, stepY - 1);
                 }
             }
+        }
+
+        public bool RowHasInterestingSquares(int rowIndex, Func<GridSquare, bool> IsInteresting)
+        {
+            for (var i = 0; i < Width; i++)
+            {
+                if (IsInteresting(Squares[i, rowIndex]))
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool ColumnHasInterestingSquares(int columnIndex, Func<GridSquare, bool> IsInteresting)
+        {
+            for (var i = 0; i < Height; i++)
+            {
+                if (IsInteresting(Squares[columnIndex, i]))
+                    return true;
+            }
+
+            return false;
         }
 
         public virtual bool IsFull()

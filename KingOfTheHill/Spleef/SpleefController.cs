@@ -44,6 +44,8 @@ namespace KingOfTheHill.Spleef
         {
             if (_currentGames.Any())
             {
+                var startRow = 0;
+                var startColumn = 0;
                 var w = _currentGames.First().Board.Width;
                 var h = _currentGames.First().Board.Height;
 
