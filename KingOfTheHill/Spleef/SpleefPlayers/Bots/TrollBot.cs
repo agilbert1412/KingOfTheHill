@@ -26,7 +26,7 @@ namespace KingOfTheHill.Spleef.SpleefPlayers.Bots
 
             possibilities.Add(SpleefDecision.DefaultDecision);
 
-            var myLocation = ((SpleefPlayerInfo) GetInfo()).CurrentLocation;
+            var myLocation = GetMyLocation();
 
             for (int i = -2; i < 3; i++)
             {
@@ -35,7 +35,7 @@ namespace KingOfTheHill.Spleef.SpleefPlayers.Bots
                     if (j != 0 || i != 0)
                     {
                         var moveAction = new SpleefDecision(SpleefAction.Move, new Point(i, j));
-                        var holeAction = new SpleefDecision(SpleefAction.Move, new Point(i, j));
+                        var holeAction = new SpleefDecision(SpleefAction.Hole, new Point(i, j));
 
                         if (moveAction.IsValid)
                         {
@@ -51,7 +51,15 @@ namespace KingOfTheHill.Spleef.SpleefPlayers.Bots
                         }
                         if (holeAction.IsValid)
                         {
-                            possibilities.Add(holeAction);
+                            var dest = new Point(myLocation.X + holeAction.Target.X, myLocation.Y + holeAction.Target.Y);
+
+                            if (dest.X >= 0 && dest.X < spleefBoard.Width && dest.Y >= 0 && dest.Y < spleefBoard.Height)
+                            {
+                                if (spleefBoard[dest.X, dest.Y].IsSolid)
+                                {
+                                    possibilities.Add(holeAction);
+                                }
+                            }
                         }
                     }
                 }

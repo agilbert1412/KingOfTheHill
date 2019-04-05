@@ -10,6 +10,8 @@ namespace KingOfTheHill.Spleef.SpleefPlayers
     {
         static List<Type> typesOfPlayers = new List<Type>()
         {
+            typeof(StraightBot),
+            typeof(BullyBot),
             typeof(TrollBot),
             typeof(YourBot)
         };

@@ -221,20 +221,18 @@ namespace KingOfTheHill.UI
 
         List<Color> AllColors = new List<Color>()
         {
-            Color.DarkRed,
-            Color.DarkBlue,
+            Color.Red,
+            Color.SteelBlue,
             Color.Teal,
-            Color.Purple,
+            Color.MediumPurple,
             Color.YellowGreen,
             Color.Orange,
-            Color.Green,
+            Color.LimeGreen,
             Color.Pink,
-            Color.Gray,
-            Color.LightBlue,
+            Color.Beige,
             Color.DarkGreen,
             Color.Brown,
 
-            Color.Beige,
             Color.Chocolate,
             Color.Crimson,
             Color.DeepPink,

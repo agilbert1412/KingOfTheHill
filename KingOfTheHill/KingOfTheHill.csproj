@@ -95,6 +95,8 @@
     <Compile Include="Spleef\SpleefGame.cs" />
     <Compile Include="Spleef\SpleefDecision.cs" />
     <Compile Include="Spleef\SpleefController.cs" />
+    <Compile Include="Spleef\SpleefPlayers\Bots\BullyBot.cs" />
+    <Compile Include="Spleef\SpleefPlayers\Bots\StraightBot.cs" />
     <Compile Include="Spleef\SpleefPlayers\Bots\TrollBot.cs" />
     <Compile Include="Spleef\SpleefPlayers\Bots\YourBot.cs" />
     <Compile Include="Spleef\SpleefPlayers\SpleefPlayerInfo.cs" />
