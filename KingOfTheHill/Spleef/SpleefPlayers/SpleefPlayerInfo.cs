@@ -16,5 +16,13 @@ namespace KingOfTheHill.Spleef.SpleefPlayers
         {
             CurrentLocation = new Point(0, 0);
         }
+
+        public SpleefPlayerInfo Clone()
+        {
+            var clone = new SpleefPlayerInfo(Name.Clone().ToString(), ID);
+            clone.CurrentLocation = this.CurrentLocation;
+            clone.PlayerColor = this.PlayerColor;
+            return clone;
+        }
     }
 }

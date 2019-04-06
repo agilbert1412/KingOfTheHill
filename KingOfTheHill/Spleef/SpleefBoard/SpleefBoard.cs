@@ -56,5 +56,24 @@ namespace KingOfTheHill.Spleef.SpleefBoard
                 return (SpleefGridSquare)Squares[i, j];
             }
         }
+
+        public SpleefBoard Clone()
+        {
+            return CloneBoard(this);
+        }
+
+        public static SpleefBoard CloneBoard(SpleefBoard board)
+        {
+            var newBoard = new Spleef.SpleefBoard.SpleefBoard(board.Width, board.Height);
+            for (var x = 0; x < board.Width; x++)
+            {
+                for (var y = 0; y < board.Height; y++)
+                {
+                    newBoard[x, y].Status = board[x, y].Status;
+                }
+            }
+
+            return newBoard;
+        }
     }
 }

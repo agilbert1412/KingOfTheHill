@@ -146,7 +146,7 @@ namespace KingOfTheHill.Spleef
                 StartGame(playersScores);
             }
 
-            var infos = Players.Select(GetSpleefInfo).ToList();
+            var infos = Players.Select(x => GetSpleefInfo(x).Clone()).ToList();
 
             var playersAlive = GetAlivePlayers();
 
@@ -158,9 +158,9 @@ namespace KingOfTheHill.Spleef
                 SpleefDecision decision;
                 try
                 {
-                    decision = p.PlayTurn(infos, Board);
+                    decision = p.PlayTurn(infos, Board.Clone());
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
                     decision = SpleefDecision.DefaultDecision;
                 }
