@@ -48,28 +48,6 @@ namespace KingOfTheHill.Board
             }
         }
 
-        public bool RowHasInterestingSquares(int rowIndex, Func<GridSquare, bool> IsInteresting)
-        {
-            for (var i = 0; i < Width; i++)
-            {
-                if (IsInteresting(Squares[i, rowIndex]))
-                    return true;
-            }
-
-            return false;
-        }
-
-        public bool ColumnHasInterestingSquares(int columnIndex, Func<GridSquare, bool> IsInteresting)
-        {
-            for (var i = 0; i < Height; i++)
-            {
-                if (IsInteresting(Squares[columnIndex, i]))
-                    return true;
-            }
-
-            return false;
-        }
-
         public virtual bool IsFull()
         {
             for (var i = 0; i < Width; i++)

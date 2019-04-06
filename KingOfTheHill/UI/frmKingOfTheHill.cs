@@ -146,6 +146,7 @@ namespace KingOfTheHill.UI
 
         private void timerStep_Tick(object sender, EventArgs e)
         {
+            timerStep.Stop();
             _controller.DoGameStep(pnlGame);
 
             _controller.ShowScoresLabels(groupScores);
@@ -156,6 +157,7 @@ namespace KingOfTheHill.UI
             if (_controller.IsCurrentlyRunning())
             {
                 pnlGame.Refresh();
+                timerStep.Start();
             }
             else
             {
@@ -228,8 +230,6 @@ namespace KingOfTheHill.UI
             Color.YellowGreen,
             Color.Orange,
             Color.LimeGreen,
-            Color.Pink,
-            Color.Beige,
             Color.DarkGreen,
             Color.Brown,
 
@@ -237,29 +237,22 @@ namespace KingOfTheHill.UI
             Color.Crimson,
             Color.DeepPink,
             Color.Firebrick,
-            Color.FloralWhite,
             Color.ForestGreen,
             Color.Fuchsia,
             Color.Gold,
             Color.GreenYellow,
-            Color.Honeydew,
             Color.HotPink,
             Color.IndianRed,
             Color.Indigo,
-            Color.Ivory,
-            Color.Khaki,
             Color.Lavender,
             Color.LawnGreen,
             Color.Lime,
             Color.Magenta,
             Color.Maroon,
-            Color.MintCream,
             Color.Navy,
             Color.Olive,
             Color.Orchid,
-            Color.PeachPuff,
             Color.Salmon,
-            Color.Snow,
             Color.Tan,
             Color.Tomato,
             Color.Turquoise,

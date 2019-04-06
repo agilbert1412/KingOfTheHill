@@ -155,6 +155,13 @@ namespace KingOfTheHill.Spleef
 
                 if (gameIsOver)
                 {
+                    var winners = thisGame.GetAlivePlayers();
+                    if (winners.Count == 1)
+                    {
+                        var winner = winners.First();
+                        _currentScores[winner.Info] += 2;
+                    }
+
                     var scores = thisGame.GetStatus().OrderByDescending(x => x.Value).ToList();
                     
                     foreach (var score in scores)

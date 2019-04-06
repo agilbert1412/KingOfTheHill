@@ -60,12 +60,79 @@ namespace KingOfTheHill.Spleef
 
         public override void Paint(Graphics gfx, Rectangle bounds)
         {
+            /*var startRow = 0;
+            var startColumn = 0;
+            var endRow = Board.Width - 1;
+            var endColumn = Board.Height - 1;
+
+            while (!RowHasInterestingSquares(startRow))
+            {
+                startRow++;
+            }
+            while (!RowHasInterestingSquares(endRow))
+            {
+                endRow--;
+            }
+            while (!ColumnHasInterestingSquares(startColumn))
+            {
+                startColumn++;
+            }
+            while (!ColumnHasInterestingSquares(endColumn))
+            {
+                endColumn--;
+            }
+
+            var expectedWidth = Board.Width;
+            var expectedHeight = Board.Height;
+
+            var realWidth = endColumn - startColumn + 1;
+            var realHeight = endRow - startRow + 1;
+
+            var sizeDiffX = expectedWidth / (float)realWidth;
+            var sizeDiffY = expectedHeight / (float)realHeight;
+
+            var sizeX = bounds.Width / (float)realWidth;
+            var sizeY = bounds.Height / (float)realHeight;
+
+            bounds.X -= (int)Math.Round(sizeX * startColumn);
+            bounds.Y -= (int)Math.Round(sizeY * startRow);
+
+            bounds.Width = (int)Math.Round(bounds.Width * sizeDiffX);
+            bounds.Height = (int)Math.Round(bounds.Height * sizeDiffY);*/
+
             Board.Paint(gfx, bounds, !GetAlivePlayers().Any());
 
             foreach (var p in Players)
             {
                 p.Paint(gfx, Board, bounds);
             }
+        }
+
+        public bool RowHasInterestingSquares(int rowIndex)
+        {
+            for (var i = 0; i < Board.Width; i++)
+            {
+                if (IsInterestingSquare(Board[i, rowIndex]))
+                    return true;
+            }
+
+            return false;
+        }
+
+        public bool ColumnHasInterestingSquares(int columnIndex)
+        {
+            for (var i = 0; i < Board.Height; i++)
+            {
+                if (IsInterestingSquare(Board[columnIndex, i]))
+                    return true;
+            }
+
+            return false;
+        }
+
+        private bool IsInterestingSquare(SpleefGridSquare spleefSquare)
+        {
+            return spleefSquare.IsSolid;
         }
 
         /// <summary>

@@ -27,31 +27,8 @@ namespace KingOfTheHill.Spleef.SpleefBoard
 
             gfx.DrawRectangle(Pens.Black, bounds);
 
-            var startRow = 0;
-            var startColumn = 0;
-            var endRow = Width - 1;
-            var endColumn = Height - 1;
-
             var stepX = bounds.Width / Width;
             var stepY = bounds.Height / Height;
-
-            while (!RowHasInterestingSquares(startRow, IsInterestingSquare))
-            {
-                startRow++;
-            }
-            while (!RowHasInterestingSquares(endRow, IsInterestingSquare))
-            {
-                endRow--;
-            }
-
-            while (!ColumnHasInterestingSquares(startColumn, IsInterestingSquare))
-            {
-                startColumn++;
-            }
-            while (!ColumnHasInterestingSquares(endColumn, IsInterestingSquare))
-            {
-                endColumn--;
-            }
 
             for (var i = bounds.X; i < bounds.Width; i += stepX)
             {
@@ -70,16 +47,6 @@ namespace KingOfTheHill.Spleef.SpleefBoard
                     gfx.FillRectangle(new SolidBrush(Squares[i, j].Color), (i * stepX) + 1, (j * stepY) + 1, stepX - 1, stepY - 1);
                 }
             }
-        }
-
-        private bool IsInterestingSquare(GridSquare square)
-        {
-            if (square is SpleefGridSquare spleefSquare)
-            {
-                return spleefSquare.IsSolid;
-            }
-
-            return true;
         }
 
         public SpleefGridSquare this[int i,int j]
