@@ -118,7 +118,18 @@ namespace KingOfTheHill.Spleef.SpleefPlayers
         /// <returns>The destination location</returns>
         protected Point GetTargetSquare(Point myLocation, Point movement)
         {
-            return new Point(myLocation.X + movement.X, myLocation.Y + movement.Y);
+            return GetTargetSquare(myLocation, movement.X, movement.Y);
+        }
+
+        /// <summary>
+        /// Gets the square targeted by a bot if they are in a specific location and target a specific offset
+        /// </summary>
+        /// <param name="myLocation">The origin location</param>
+        /// <param name="movement">The offset</param>
+        /// <returns>The destination location</returns>
+        protected Point GetTargetSquare(Point myLocation, int x, int y)
+        {
+            return new Point(myLocation.X + x, myLocation.Y + y);
         }
 
         /// <summary>
