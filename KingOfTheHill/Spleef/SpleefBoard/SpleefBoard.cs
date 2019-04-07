@@ -70,6 +70,7 @@ namespace KingOfTheHill.Spleef.SpleefBoard
                 for (var y = 0; y < board.Height; y++)
                 {
                     newBoard[x, y].Status = board[x, y].Status;
+                    newBoard[x, y].HealthRemaining = board[x, y].HealthRemaining;
                 }
             }
 
