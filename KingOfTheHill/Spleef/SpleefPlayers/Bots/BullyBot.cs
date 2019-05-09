@@ -60,7 +60,7 @@ namespace KingOfTheHill.Spleef.SpleefPlayers.Bots
                 easiestToReachPlayers.Remove(targetToRunAfter);
             }
 
-            if (targetPath != null)
+            if (targetPath != null && targetPath.Count > 1)
             {
                 var thisTurnDest = targetPath[1];
                 var offsetFromMe = new Point(thisTurnDest.X - myLocation.X, thisTurnDest.Y - myLocation.Y);

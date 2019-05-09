@@ -44,8 +44,6 @@ namespace KingOfTheHill.Spleef
         {
             if (_currentGames.Any())
             {
-                var startRow = 0;
-                var startColumn = 0;
                 var w = _currentGames.First().Board.Width;
                 var h = _currentGames.First().Board.Height;
 
@@ -59,6 +57,23 @@ namespace KingOfTheHill.Spleef
         {
             var newBot = _playerFactory.CreatePlayerOfType(index) as SpleefPlayer;
             newBot.Info.Name += " " + (_currentPlayers.Count(x => x.GetType() == newBot.GetType()) + 1);
+            newBot.Info.ID = _currentPlayers.Count;
+            newBot.GetInfo().PlayerColor = color;
+
+            _currentPlayers.Add(newBot);
+        }
+
+        public void AddPlayer(Player player, Color color)
+        {
+            var newBot = player as SpleefPlayer;
+
+            var nameParts = newBot.Info.Name.Split(' ');
+
+            if (nameParts.Length < 2)
+            {
+                newBot.Info.Name += " " + (_currentPlayers.Count(x => x.GetType() == newBot.GetType()) + 1);
+            }
+
             newBot.Info.ID = _currentPlayers.Count;
             newBot.GetInfo().PlayerColor = color;
 
@@ -263,6 +278,11 @@ namespace KingOfTheHill.Spleef
                     i++;
                 }
             }
+        }
+
+        public Dictionary<PlayerInfo, int> GetScores()
+        {
+            return _currentScores.OrderByDescending(x => x.Value).ToDictionary(x => x.Key, x => x.Value);
         }
 
         public void ShowScoresLabels(GroupBox groupScores)

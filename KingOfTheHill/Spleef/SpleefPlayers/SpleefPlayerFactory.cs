@@ -13,7 +13,13 @@ namespace KingOfTheHill.Spleef.SpleefPlayers
             typeof(StraightBot),
             typeof(BullyBot),
             typeof(TrollBot),
-            typeof(YourBot)
+            typeof(YourBot),
+            typeof(ShyBot),
+            typeof(SmartKBot),
+            typeof(KaitoBot),
+            typeof(BadBot),
+            typeof(PacifistBot),
+            typeof(ScaleBot)
         };
 
         public List<string> GetPlayerTypes()

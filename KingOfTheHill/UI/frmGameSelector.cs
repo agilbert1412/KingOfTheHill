@@ -2,6 +2,7 @@
 using System.Windows.Forms;
 using KingOfTheHill.ColorCraze;
 using KingOfTheHill.Spleef;
+using KingOfTheHill.Spleef.SpleefPlayers.Bots.SmartKaitoBot;
 
 namespace KingOfTheHill.UI
 {
@@ -22,9 +23,9 @@ namespace KingOfTheHill.UI
 
         private void btnSpleef_Click(object sender, EventArgs e)
         {
-            var frmColor = new frmKingOfTheHill(new SpleefController());
+            var frmSpleef = new frmKingOfTheHill(new SpleefController());
             this.Hide();
-            frmColor.ShowDialog();
+            frmSpleef.ShowDialog();
             this.Close();
         }
     }

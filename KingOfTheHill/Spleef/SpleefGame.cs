@@ -160,7 +160,7 @@ namespace KingOfTheHill.Spleef
                 {
                     decision = p.PlayTurn(infos, Board.Clone());
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     decision = SpleefDecision.DefaultDecision;
                 }

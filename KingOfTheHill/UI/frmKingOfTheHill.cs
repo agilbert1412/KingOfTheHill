@@ -16,6 +16,8 @@ namespace KingOfTheHill.UI
     public partial class frmKingOfTheHill : Form
     {
         private IKingOfTheHillController _controller;
+
+        private bool timerShouldRun = false;
 		
         public frmKingOfTheHill(IKingOfTheHillController gameController)
         {
@@ -141,6 +143,7 @@ namespace KingOfTheHill.UI
             btnRemoveAllBots.Enabled = false;
             btnAddAllBots.Enabled = false;
 
+            timerShouldRun = true;
             timerStep.Start();
         }
 
@@ -157,10 +160,14 @@ namespace KingOfTheHill.UI
             if (_controller.IsCurrentlyRunning())
             {
                 pnlGame.Refresh();
-                timerStep.Start();
+                if (timerShouldRun)
+                {
+                    timerStep.Start();
+                }
             }
             else
             {
+                timerShouldRun = false;
                 timerStep.Stop();
                 btnStartGames.Enabled = true;
                 btnStop.Enabled = false;
@@ -182,12 +189,14 @@ namespace KingOfTheHill.UI
         {
             if (btnPause.Text == "Pause")
             {
+                timerShouldRun = false;
                 timerStep.Stop();
                 btnPause.Text = "Resume";
                 chkRefreshDisplay.Checked = false;
             }
             else
             {
+                timerShouldRun = true;
                 timerStep.Start();
                 btnPause.Text = "Pause";
             }
@@ -195,17 +204,21 @@ namespace KingOfTheHill.UI
 
         private void btnStop_Click(object sender, EventArgs e)
         {
+            timerShouldRun = false;
             timerStep.Stop();
             btnStartGames.Enabled = true;
             btnStop.Enabled = false;
             btnPause.Enabled = false;
             chkRefreshDisplay.Checked = false;
+            btnRemoveAllBots.Enabled = true;
+            btnAddAllBots.Enabled = true;
         }
 
         private void chkRefreshDisplay_CheckedChanged(object sender, EventArgs e)
         {
             if (chkRefreshDisplay.Checked)
             {
+                timerShouldRun = false;
                 timerStep.Stop();
                 trackBar1.Enabled = false;
                 while (_controller.IsCurrentlyRunning() && chkRefreshDisplay.Checked)
@@ -216,6 +229,7 @@ namespace KingOfTheHill.UI
                 trackBar1.Enabled = true;
                 if (btnPause.Text == "Pause")
                 {
+                    timerShouldRun = true;
                     timerStep.Start();
                 }
             }

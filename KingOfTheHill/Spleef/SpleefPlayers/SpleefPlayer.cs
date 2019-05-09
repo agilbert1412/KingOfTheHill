@@ -39,7 +39,16 @@ namespace KingOfTheHill.Spleef.SpleefPlayers
             var words = Info.Name.Split(' ');
             var stringToDraw = string.Join("\r\n", words);
 
-            var longestWordLength = words.OrderByDescending(x => x.Length).First().Length - 1;
+            var longestWordLength = words.OrderByDescending(x => x.Length).First().Length;
+
+            if (longestWordLength > 7)
+            {
+                longestWordLength--;
+            }
+            if (longestWordLength > 9)
+            {
+                longestWordLength--;
+            }
 
             var drawFont = new Font("Arial", stepX / longestWordLength, FontStyle.Bold);
             var drawFormat = new StringFormat();
@@ -49,7 +58,7 @@ namespace KingOfTheHill.Spleef.SpleefPlayers
             gfx.DrawString(stringToDraw, drawFont, Brushes.Black, ellipse, drawFormat);
         }
 
-        internal override PlayerInfo GetInfo()
+        public override PlayerInfo GetInfo()
         {
             return (SpleefPlayerInfo)Info;
         }

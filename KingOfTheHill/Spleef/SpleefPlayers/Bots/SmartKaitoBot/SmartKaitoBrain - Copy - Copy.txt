@@ -1,0 +1,11 @@
+DepthValue:5
+LeafMoveValue:1
+DefaultMoveValue:1
+EnemyBirdDistance:1
+EnemyBirdDistancePow2:1
+CantReachValue:0
+PathDistValue:1
+PathDistValuePow2:1
+SurviveOptionsValue:-1
+MoveValue:1
+WaitValue:1
