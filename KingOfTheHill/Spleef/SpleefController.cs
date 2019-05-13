@@ -151,7 +151,7 @@ namespace KingOfTheHill.Spleef
                 var playersAliveBefore = thisGame.GetAlivePlayers();
                 var nbPlayersAliveBefore = playersAliveBefore.Count;
 
-                var gameIsOver = thisGame.PlayStep(_currentScores);
+                var gameIsOver = thisGame.PlayStep(_currentScores, null);
 
                 var playersAliveAfter = thisGame.GetAlivePlayers();
                 var nbPlayersAliveAfter = playersAliveAfter.Count;

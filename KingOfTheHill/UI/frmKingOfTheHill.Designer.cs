@@ -66,8 +66,8 @@
             // 
             // pnlGame
             // 
-            this.pnlGame.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.pnlGame.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pnlGame.Location = new System.Drawing.Point(12, 12);
             this.pnlGame.Name = "pnlGame";
@@ -281,7 +281,7 @@
             // 
             // groupScores
             // 
-            this.groupScores.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.groupScores.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupScores.Controls.Add(this.lblScoresScore);
             this.groupScores.Controls.Add(this.lblScoresBot);
@@ -312,7 +312,7 @@
             // 
             // groupStatus
             // 
-            this.groupStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.groupStatus.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupStatus.Controls.Add(this.lblStatusSquares);
             this.groupStatus.Controls.Add(this.lblStatusBot);
@@ -328,9 +328,9 @@
             this.lblStatusSquares.AutoSize = true;
             this.lblStatusSquares.Location = new System.Drawing.Point(88, 17);
             this.lblStatusSquares.Name = "lblStatusSquares";
-            this.lblStatusSquares.Size = new System.Drawing.Size(46, 13);
+            this.lblStatusSquares.Size = new System.Drawing.Size(37, 13);
             this.lblStatusSquares.TabIndex = 3;
-            this.lblStatusSquares.Text = "Squares";
+            this.lblStatusSquares.Text = "Status";
             // 
             // lblStatusBot
             // 
@@ -365,7 +365,7 @@
             this.ShowPlayerStatisticsButton.UseVisualStyleBackColor = true;
             this.ShowPlayerStatisticsButton.Click += new System.EventHandler(this.ShowPlayerStatisticsButton_Click);
             // 
-            // frmColorCraze
+            // frmKingOfTheHill
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -391,7 +391,7 @@
             this.Controls.Add(this.listBotsAvailable);
             this.Controls.Add(this.pnlGame);
             this.DoubleBuffered = true;
-            this.Name = "frmColorCraze";
+            this.Name = "frmKingOfTheHill";
             this.Text = "frmColorCraze";
             this.Load += new System.EventHandler(this.frmColorCraze_Load);
             ((System.ComponentModel.ISupportInitialize)(this.numGames)).EndInit();

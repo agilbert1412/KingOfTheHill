@@ -111,7 +111,7 @@ namespace KingOfTheHill.ColorCraze
         {
             if (_currentGames.Any())
             {
-                var gameIsOver = _currentGames.First().PlayStep(_currentScores);
+                var gameIsOver = _currentGames.First().PlayStep(_currentScores, null);
                 pnlGame.Refresh();
                 Application.DoEvents();
 

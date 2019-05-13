@@ -11,6 +11,6 @@ namespace KingOfTheHill
     public abstract class Game
     {
         public abstract void Paint(Graphics gfx, Rectangle bounds);
-        public abstract bool PlayStep(Dictionary<PlayerInfo, int> playersScores);
+        public abstract bool PlayStep(Dictionary<PlayerInfo, int> playersScores, object completeHistory);
     }
 }

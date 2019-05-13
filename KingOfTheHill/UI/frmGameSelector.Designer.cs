@@ -30,6 +30,7 @@
         {
             this.btnColorCraze = new System.Windows.Forms.Button();
             this.btnSpleef = new System.Windows.Forms.Button();
+            this.btnDilemma = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnColorCraze
@@ -52,11 +53,22 @@
             this.btnSpleef.UseVisualStyleBackColor = true;
             this.btnSpleef.Click += new System.EventHandler(this.btnSpleef_Click);
             // 
+            // btnDilemma
+            // 
+            this.btnDilemma.Location = new System.Drawing.Point(52, 116);
+            this.btnDilemma.Name = "btnDilemma";
+            this.btnDilemma.Size = new System.Drawing.Size(100, 50);
+            this.btnDilemma.TabIndex = 2;
+            this.btnDilemma.Text = "Prisoner\'s Dilemma";
+            this.btnDilemma.UseVisualStyleBackColor = true;
+            this.btnDilemma.Click += new System.EventHandler(this.btnDilemma_Click);
+            // 
             // frmGameSelector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(346, 311);
+            this.Controls.Add(this.btnDilemma);
             this.Controls.Add(this.btnSpleef);
             this.Controls.Add(this.btnColorCraze);
             this.Name = "frmGameSelector";
@@ -69,6 +81,7 @@
 
         private System.Windows.Forms.Button btnColorCraze;
         private System.Windows.Forms.Button btnSpleef;
+        private System.Windows.Forms.Button btnDilemma;
     }
 }
 

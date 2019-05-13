@@ -88,6 +88,16 @@
     <Compile Include="ColorCraze\ColorCrazeGame.cs" />
     <Compile Include="ColorCraze\ColorCrazePlayers\ColorCrazePlayerInfo.cs" />
     <Compile Include="Decision.cs" />
+    <Compile Include="Dilemma\DilemmaController.cs" />
+    <Compile Include="Dilemma\DilemmaDecision.cs" />
+    <Compile Include="Dilemma\DilemmaGame.cs" />
+    <Compile Include="Dilemma\DilemmaPlayers\Bots\LilShitBot.cs" />
+    <Compile Include="Dilemma\DilemmaPlayers\Bots\CuteBot.cs" />
+    <Compile Include="Dilemma\DilemmaPlayers\Bots\TrollBot.cs" />
+    <Compile Include="Dilemma\DilemmaPlayers\Bots\YourBot.cs" />
+    <Compile Include="Dilemma\DilemmaPlayers\DilemmaPlayer.cs" />
+    <Compile Include="Dilemma\DilemmaPlayers\DilemmaPlayerFactory.cs" />
+    <Compile Include="Dilemma\DilemmaPlayers\DilemmaPlayerInfo.cs" />
     <Compile Include="IPlayerFactory.cs" />
     <Compile Include="IKingOfTheHillController.cs" />
     <Compile Include="Spleef\SpleefBoard\SpleefBoard.cs" />
@@ -166,7 +176,15 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\Betray.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Peace.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\question mark.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

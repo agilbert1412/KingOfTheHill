@@ -55,7 +55,7 @@ namespace KingOfTheHill.ColorCraze
         /// Plays the next step of the game. Returns true if the game is over after this step
         /// </summary>
         /// <returns>True if the game is over, false if it can go on</returns>
-        public override bool PlayStep(Dictionary<PlayerInfo, int> playersScores)
+        public override bool PlayStep(Dictionary<PlayerInfo, int> playersScores, object completeHistory)
         {
             if (turnCounterAfterEnd == -1)
             {

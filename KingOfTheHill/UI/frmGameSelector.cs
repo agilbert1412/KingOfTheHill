@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 using KingOfTheHill.ColorCraze;
+using KingOfTheHill.Dilemma;
 using KingOfTheHill.Spleef;
 using KingOfTheHill.Spleef.SpleefPlayers.Bots.SmartKaitoBot;
 
@@ -24,6 +25,14 @@ namespace KingOfTheHill.UI
         private void btnSpleef_Click(object sender, EventArgs e)
         {
             var frmSpleef = new frmKingOfTheHill(new SpleefController());
+            this.Hide();
+            frmSpleef.ShowDialog();
+            this.Close();
+        }
+
+        private void btnDilemma_Click(object sender, EventArgs e)
+        {
+            var frmSpleef = new frmKingOfTheHill(new DilemmaController());
             this.Hide();
             frmSpleef.ShowDialog();
             this.Close();
