@@ -49,7 +49,7 @@ namespace KingOfTheHill.Dilemma.DilemmaPlayers
 
         public abstract void StartAll(List<DilemmaPlayerInfo> allPlayers);
 
-        public abstract DilemmaDecision PlayTurn(Dictionary<PlayerInfo, int> allPlayersAndScores, List<DilemmaGame> completeHistory);
+        public abstract DilemmaDecision PlayTurn(DilemmaPlayerInfo currentOpponent, Dictionary<PlayerInfo, int> allPlayersAndScores, List<DilemmaGame> completeHistory);
 
         #region Useful Methods
 

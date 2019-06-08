@@ -3,6 +3,7 @@ using KingOfTheHill.Players;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace KingOfTheHill.Dilemma
 {
@@ -100,7 +101,7 @@ namespace KingOfTheHill.Dilemma
 
                 try
                 {
-                    decision = player.PlayTurn(playersScores, completeHistory as List<DilemmaGame>);
+                    decision = player.PlayTurn(Players.First(x => x != player).GetInfo() as DilemmaPlayerInfo, playersScores, completeHistory as List<DilemmaGame>);
                 }
                 catch (Exception e)
                 {

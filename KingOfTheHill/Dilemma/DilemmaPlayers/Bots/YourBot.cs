@@ -13,7 +13,7 @@ namespace KingOfTheHill.Dilemma.DilemmaPlayers.Bots
         {
         }
 
-        public override DilemmaDecision PlayTurn(Dictionary<PlayerInfo, int> allPlayersAndScores, List<DilemmaGame> completeHistory)
+        public override DilemmaDecision PlayTurn(DilemmaPlayerInfo currentOpponent, Dictionary<PlayerInfo, int> allPlayersAndScores, List<DilemmaGame> completeHistory)
         {
             return DilemmaDecision.DefaultDecision;
         }
